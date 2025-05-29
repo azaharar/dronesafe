@@ -109,6 +109,50 @@ $droneData = [
     'pickup_code' => $package['pickup_code'],
     'package_id' => $package['id']
 ];
+
+// Generar puntos intermedios aleatorios entre el origen y el destino
+function generateRandomMiddlePoints($originLat, $originLon, $destLat, $destLon, $numPoints = 3) {
+    $points = [];
+    for ($i = 1; $i <= $numPoints; $i++) {
+        
+        $t = $i / ($numPoints + 1);
+
+       
+        $lat = $originLat + ($destLat - $originLat) * $t;
+        $lon = $originLon + ($destLon - $originLon) * $t;
+
+        $lat += (rand(-100, 100) / 100000); 
+        $lon += (rand(-100, 100) / 100000); 
+
+        $points[] = [
+            'latitude' => $lat,
+            'longitude' => $lon,
+            'name' => "Punto intermedio $i"
+        ];
+    }
+    return $points;
+}
+
+$middlePoints = generateRandomMiddlePoints($aldiLat, $aldiLon, $sagradaLat, $sagradaLon, 3);
+
+// Añadir los puntos intermedios a la ruta del dron
+    $droneData['route'] = array_merge(
+    [
+        [
+            'latitude' => $aldiLat,
+            'longitude' => $aldiLon,
+            'name' => 'Supermercado ALDI'
+        ]
+    ],
+    $middlePoints,
+    [
+        [
+            'latitude' => $sagradaLat,
+            'longitude' => $sagradaLon,
+            'name' => 'Escuelas Profesionales Sagrada Familia'
+        ]
+    ]
+);
 ?>
 
 <div class="dashboard-container">
