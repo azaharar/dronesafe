@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 <div class="auth-container">
-    <h2>Crear Cuenta</h2>
+    <h2 class="auth-title">Crear Cuenta</h2>
     
     <?php if ($error): ?>
         <div class="alert alert-error"><?= htmlspecialchars($error) ?></div>
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </form>
     
     <div class="auth-footer">
-        ¿Ya tienes cuenta? <a href="login.php">Inicia sesión</a>
+        ¿Ya tienes cuenta? <a href="login.php" class="auth-link">Inicia sesión</a>
     </div>
 </div>
 
